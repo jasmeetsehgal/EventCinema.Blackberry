@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "EventCinema.Blackberry", "http://localhost:24891", "{2B983578-E464-4848-A350-C53A9A1D6053}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_24891"
+		Debug.AspNetCompiler.PhysicalPath = "EventCinema.Blackberry\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_24891\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_24891"
+		Release.AspNetCompiler.PhysicalPath = "EventCinema.Blackberry\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_24891\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "EventCinema.Blackberry\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{70B2C8B0-0C7E-4A54-A32A-700B83F28E13}"
+	ProjectSection(SolutionItems) = preProject
+		DeployPhone.bat = DeployPhone.bat
+		DeployPhoneYung.bat = DeployPhoneYung.bat
+		DeploySimulator.bat = DeploySimulator.bat
+		DeploySimulatorYung.bat = DeploySimulatorYung.bat
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfs.alphasalmon.com.au:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccWebProject1 = true
+		SccProjectUniqueName1 = http://localhost:24891
+		SccProjectName1 = EventCinema.Blackberry
+		SccLocalPath1 = EventCinema.Blackberry
+		SccProjectEnlistmentChoice1 = 2
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B983578-E464-4848-A350-C53A9A1D6053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B983578-E464-4848-A350-C53A9A1D6053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

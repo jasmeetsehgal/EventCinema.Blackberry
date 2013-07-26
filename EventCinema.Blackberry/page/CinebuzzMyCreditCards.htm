@@ -1,0 +1,47 @@
+﻿<div data-bb-type="screen" data-bb-effect="slide-left">
+    <div class="cinebuzz page-select-card">
+        <div class="header">
+            <div class="hItem">
+                <div class="title alighn-left">
+                    Select a card type to add
+                </div>
+            </div>
+        </div>
+        <!--<form>-->
+            <div id="scroller-content" data-bb-type="scroll-panel" style="height: 100%">
+                    <div data-bb-type="round-panel">
+                          <div data-bb-type="panel-header">Credit Card Details</div>
+                        <div class="row">
+                             <div data-bb-type="pill-buttons" id="myPillButtons" style="margin-bottom: 10px;">
+                                <div data-bb-type="pill-button" id="cinebuzz-my-credit-cards-btn-visa" data-bb-selected="true">Visa</div>
+                                <div data-bb-type="pill-button" id="cinebuzz-my-credit-cards-btn-master"><span class="lines2">Master<br />Card</span></div>
+                                <div data-bb-type="pill-button" id="cinebuzz-my-credit-cards-btn-american"><span class="lines2">American<br />Express</span></div>
+                                <div data-bb-type="pill-button" id="cinebuzz-my-credit-cards-btn-diners"><span class="lines2">Diners<br />Club</span></div>
+                            </div>
+                        </div>
+                        <div class="row " style="color: #fff;">
+                            Card Number:                           
+                            <input type="number" id="cinebuzz-my-credit-cards-card-number" value="" min="01" max="12" placeholder="Card Number" required />
+                        </div>
+                        <div class="row" style="color: #fff; overflow:hidden;">
+                            <div class="card-expiry-label">Card Expiry: </div>
+                            <div class="card-expiry-month"><input type="number" id="cinebuzz-my-credit-cards-card-expiry-month" value="" min="00" max="99" placeholder="MM" required /></div><div class="card-expiry-month"><input type="number" id="cinebuzz-my-credit-cards-card-expiry-year" value="" placeholder="YY" required /></div>
+                        </div>
+                    </div>
+            </div>
+            <div class="bottom-buttoms">
+                <!--<input type="submit" id="frmsubmit" hidden />-->
+                <div class="btn-red">
+                    <div data-bb-type="button" data-bb-style="stretch" id="cinebuzz-my-credit-cards-btn-add-card" onclick="">Add Card</div>
+                </div>
+            </div>
+
+        <!--</form>-->
+    </div>
+
+
+    <div data-bb-type="action-bar" data-bb-back-caption="Back" id="side-nav">
+    </div>
+
+
+</div>

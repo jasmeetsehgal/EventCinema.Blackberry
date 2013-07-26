@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Event Cinema</title>
+
+<!--    <link rel="stylesheet" type="text/css" href="css/bbui.css" />-->
+    <link rel="stylesheet" type="text/css" href="css/bbui_new.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+ <!--   <script type="text/javascript" src="js/lib/bbui.js"></script>-->
+    <script type="text/javascript" src="js/lib/bbui_new.js"></script>
+    <script type="text/javascript" src="js/lib/jquery-1.9.0.min.js"></script>
+    <script src="js/lib/jquery-migrate-1.1.0.js"></script>
+    <script src="js/lib/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script type="text/javascript" src="local:///chrome/webworks.js"></script>
+    <script type="text/javascript" src="js/lib/persistence.js"></script>
+    <script type="text/javascript" src="js/lib/persistence.store.sql.js"></script>
+    <script type="text/javascript" src="js/lib/persistence.store.websql.js"></script>
+    <script type="text/javascript" src="js/lib/persistence.jquery.js"></script>
+    <script type="text/javascript" src="js/lib/mustache.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.mustache.js"></script>
+    <script type="text/javascript" src="js/lib/handlebars.js"></script>
+    <script type="text/javascript" src="js/app-constant.js"></script>
+    <script type="text/javascript" src="js/pages.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/ec-api.js"></script>
+    <script type="text/javascript" src="js/ec-db.js"></script>
+    <script type="text/javascript" src="js/service.js"></script>
+    <script type="text/javascript" src="js/SERVICE/cinemas.js"></script>
+    <script type="text/javascript" src="js/SERVICE/cinemasClosest.js"></script>
+    <script type="text/javascript" src="js/SERVICE/creditCardTypes.js"></script>
+    <script type="text/javascript" src="js/SERVICE/helpers.js"></script>
+    <script type="text/javascript" src="js/SERVICE/movies.js"></script>
+    <script type="text/javascript" src="js/SERVICE/movieSummaries.js"></script>
+    <script type="text/javascript" src="js/SERVICE/ratings.js"></script>
+    <script type="text/javascript" src="js/SERVICE/sessions.js"></script>
+    <script type="text/javascript" src="js/SERVICE/settings.js"></script>
+    <script type="text/javascript" src="js/SERVICE/states.js"></script>
+    <script type="text/javascript" src="js/SERVICE/users.js"></script>
+    <script type="text/javascript" src="js/debug.js"></script>
+    <script type="text/javascript" src="js/format.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+     
+    <script type="text/javascript">
+        document.addEventListener('webworksready', mainWebWorksReady, false);
+     
+    </script>
+    <script type="text/html" id="credit-card-listing-item">
+        <li class="">
+            <table class="check-box-cont">
+                <tr>
+                    <td class="cell" style="padding-top: 7px;">
+                        <div class="card-details">
+                            <div class="card-label">Card Type:</div>
+                            <div class="card-text">{{cardType}}</div>
+                            <!--<div class="card-label">Name on Card:</div>
+                            <div class="card-text">{{NameOnCard}}</div>-->
+                            <div class="card-label">Card Number:</div>
+                            <div class="card-text">{{redactedCardNumber}}</div>
+                            <div class="card-label">Expiry Date:</div>
+                            <div class="card-text">{{cardExpiryDate}}</div>
+                        </div>
+                    </td>
+                    <td class="cell check-box">
+                        <input class="" id="{{cardId}}" type="checkbox" /></td>
+                </tr>
+            </table>
+        </li>
+    </script>
+    <script type="text/html" id="offer-listing-item">
+        <li>
+        <div>
+                {{description}}                     
+            </div>
+            <div>
+                Only $<span class="colorWhite">{{price}}</span> 
+            </div>
+            <div>
+                Expiry Date: <span class="colorWhite">{{expiryDate}}</span>
+            </div>
+            <div>
+                Points required: <span class="colorWhite">{{pointsCost}}</span>
+            </div>
+            <!--<p class="greyed">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+        </li>
+    </script>
+    <script type="text/html" id="movie-listing-item">
+        <li data-movie-id="{{movieId}}" data-release-date="{{releaseDate}}">
+            <div class="thumb" >
+                <img src="{{moviePosterImageThumbnailCDN}}" /></div>
+            <div class="detail" >
+                <div class="title">{{movieTitle}}</div>
+                <div class="description">
+                    <span class="rating-wrap">Rating: <span class="colorWhite">{{ratingText}}</span> |</span>
+                    <span class="cinema-icons-wrap">
+                    {{#hasVmaxSessions}}
+                    <img src="img/icon_v.png" class="padd-left" />
+                    {{/hasVmaxSessions}}
+                    {{#hasGoldClassSessions}}
+                    <img src="img/icon_gc.png" class="padd-left" />
+                    {{/hasGoldClassSessions}}
+                    {{#is3D}}
+                    <img src="img/icon_3d.png" class="padd-left" />
+                    {{/is3D}}
+                    </span>
+                   <span class="text-right colorWhite">{{releaseDateDDMM}}</span>
+                </div>
+            </div>
+        </li>
+    </script>
+    <script type="text/html" id="cinema-listing-item">
+        <li data-cinema-id="{{cinemaId}}">
+            <a href="#" class="icon-info" style="padding: 10px;">
+                <img src="img/info_icon_s.png" alt="" /></a> <span class="cinema-name">{{name}}</span> 
+            <span class="text-right arrow cinema-distance">{{distanceFromMeText}}</span>                   
+        </li>
+    </script>
+    <script type="text/html" id="all-states-listing-item">
+        <li data-state-id="{{stateId}}">{{state}} 
+            <span class="text-right arrow">&nbsp;</span>                   
+        </li>
+    </script>
+    <script type="text/html" id="all-cinema-listing-item">
+        <div data-bb-type="round-panel" class="bb-bb10-round-panel-1280x768-1280x720">
+            <div class="accordion-head">
+                <div class="detail">
+                    <div class="title">{{state}}</div>
+                </div>
+            </div>
+            <ul class="accordion-items list-items">
+                {{#cinemalist}}
+                <li data-id="{{id}}">
+                    <a href="#" class="icon-info" style="padding: 10px;">
+                        <img src="img/info_icon_s.png" alt="" /></a> <span class="cinema-name">{{name}}</span> <span class="text-right arrow  cinema-distance">&nbsp;</span>
+                </li>
+                {{/cinemalist}}                      
+            </ul>
+        </div>
+    </script>
+    <script type="text/html" id="session-listing-item-by-movie">
+        <div data-bb-type="round-panel" class="bb-bb10-round-panel-1280x768-1280x720">
+            <div class="accordion-head">
+                <div class="detail">
+                    <div class="title">{{cinemaName}}</div>
+                    <div class="description">{{sessionsStartTime}}</div>
+                </div>
+            </div>
+            <ul class="accordion-items">
+                {{#sessions}}
+                <li>
+                    <span class="time">{{startTime}} | </span>
+                    {{#isVMax}}
+                    <img src="img/icon_v.png" class="padd-left" />
+                    {{/isVMax}}
+                    {{#isGoldClass}}
+                    <img src="img/icon_gc.png" class="padd-left" />
+                    {{/isGoldClass}}
+                    {{#is3D}}
+                    <img src="img/icon_3d.png" class="padd-left" />
+                    {{/is3D}}
+                    <span class="text-right arrow buy-tickets" data-session-id="{{sessionId}}">Buy Tickets</span>
+                </li>
+                {{/sessions}}
+            </ul>
+        </div>
+    </script>
+    <script type="text/html" id="session-listing-item-by-cinema">
+        <div data-bb-type="round-panel" class="bb-bb10-round-panel-1280x768-1280x720">                       
+            <div class="accordion-head" style="height: 80px;">
+                <div class="thumb" data-movie-id="{{movieId}}" ><img src="{{moviePosterImageThumbnail}}" /></div>
+                <div class="detail" >
+                    <div class="title">{{titleDisplay}}</div>
+                    <div class="description" data-filters="{{screens}}">Rating: {{ratingString}} | {{screens}}</div>
+                </div>
+            </div>  
+            <ul class="accordion-items">
+                {{#newSessions}}
+                <li data-filter-vmax="{{isVMax}}" data-filter-3d="{{is3D}}" data-filter-gc="{{isGoldClass}}">
+                    <span class="time">{{startTime}} | </span> 
+                    {{#isVMax}}
+                    <img src="img/icon_v.png" class="padd-left" /> 
+                    {{/isVMax}}
+                    {{#is3D}}
+                    <img src="img/icon_3d.png" class="padd-left" /> 
+                    {{/is3D}}
+                    {{#isGoldClass}}
+                    <img src="img/icon_gc.png" class="padd-left" />
+                    {{/isGoldClass}}
+                    <span class="text-right arrow buy-tickets" data-session-id="{{sessionId}}">Buy Tickets</span>
+                </li>
+                {{/newSessions}}
+            </ul>
+        </div>
+    </script>
+    <script type="text/html" id="temp-preferred-cinema">
+         <ul class="list-items">   
+              {{#cinemas}}           
+              <li data-cinema-id="{{id}}">{{name}}
+                    <span class="text-right arrow">&nbsp;</span>
+                </li>
+              {{/cinemas}}
+            </ul>       
+    </script>
+</head>
+<body>
+    <div class="overlay" id="loading-div">
+        <div class="bb-bb10-activity-margin-hires bb-bb10-activity-large-hires bb-activity-dark" id="load-wraper">
+            <div id="loader-div"></div>
+        </div>
+    </div>
+    <div class="overlay" id="message-pop">
+        <div class="pop-mess-contents">
+            <h1></h1>
+            <div class="mess"></div>
+            <div style="overflow: hidden;">
+                <div style="width: 50%; margin: 0 25%; float: left;" class="close">
+                    <div data-bb-type="button" data-bb-style="stretch" class="bb-bb10-button-container-1280x768-1280x720 bb-bb10-button-container-dark bb-bb10-button-stretch">
+                        <div id="message-pop-btn-ok" class="bb-bb10-button bb-bb10-button-1280x768-1280x720 bb-bb10-button-dark">
+                            OK
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" id="confirm-alert">
+        <div class="pop-confirm-contents">
+            <h1></h1>
+            <div class="mess"></div>
+            <div style="overflow: hidden;">
+                <div style="width: 44%; margin: 0 3%; float: left;">
+                    <div data-bb-type="button" class="bb-bb10-button-container-1280x768-1280x720 bb-bb10-button-container-dark bb-bb10-button-stretch">
+                        <div class="bb-bb10-button bb-bb10-button-1280x768-1280x720 bb-bb10-button-dark">
+                            <div id="confirm-alert-btn-cancel">Cancel</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="width: 44%; margin: 0 3%; float: left;">
+                    <div data-bb-type="button" class="bb-bb10-button-container-1280x768-1280x720 bb-bb10-button-container-dark bb-bb10-button-stretch">
+                        <div class="bb-bb10-button bb-bb10-button-1280x768-1280x720 bb-bb10-button-dark">
+                            <div id="confirm-alert-btn-ok">OK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
